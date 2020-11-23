@@ -1,40 +1,58 @@
 #include <stdio.h>
 #include <string.h>
- 
+
 #define true 1
-#define false 0 
 
-int main(){
+typedef unsigned short curto;
 
-int i, j, N, diamante;
-char areia[1010];
-N = 0;
-scanf("%d", &N);
+curto diamantes(char *);
 
-while (true){
+void main(){
 
-scanf("%s", areia);
-diamante = 0;
+	curto n;
+	int areia;
+	char str[1005];
 
-for (i = 0; i < strlen (areia); i++){
-            //NULL
-if (areia[i] == '\0')
-            break;
+	scanf("%hu", &n);
+	scanf("%d", &areia);
 
-if (areia[i] == '<'){
+	while (n--)
+	{
 
-for (j = i; j< strlen(areia); j++){
+		fgets(str, 1005, stdin);
+		str[strlen(str) - 1] = '\0';
+		printf("%hu\n", diamantes(str));
+		memset(str, 0, sizeof(str));
 
-if (areia[j] == '>'){
+ 	}
+}
 
-diamante++;
-areia[j] = '0';
-            break;
-     }
-    }
-   }
-  }
-printf("%d\n", diamante);
- }
-    return 0;
+curto diamantes(char *str)
+{
+
+	short x = 0;
+	curto qtsDiamantes = 0;
+
+	curto i, j;
+	for (i = 0; str[i]; ++i)
+	{
+
+		if (str[i] != '<')
+			continue;
+
+		for (j = i + 1; str[j]; ++j)
+			if (str[j] == '>')
+			{
+
+				++qtsDiamantes;
+				str[i] = 'x';
+				str[j] = 'x';
+				break;
+
+			}
+
+	}
+
+	return qtsDiamantes;
+
 }
